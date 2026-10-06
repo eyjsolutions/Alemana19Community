@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="detraction_catalog_001" model='detractions.catalog.percent'>
+			<field name='code'>001</field>
+			<field name='name'>Intermediación laboral y tercerización</field>
+			<field name='percentage'>0.12</field>
+		</record>
+		
+		<record id="detraction_catalog_002" model="detractions.catalog.percent">
+			<field name="code">002</field>
+			<field name="name">Arrendamiento de bienes</field>
+			<field name="percentage">0.10</field>
+		</record>
+
+		<record id="detraction_catalog_003" model="detractions.catalog.percent">
+			<field name="code">003</field>
+			<field name="name">Mantenimiento y reparación de bienes muebles</field>
+			<field name="percentage">0.12</field>
+		</record>
+
+		<record id="detraction_catalog_004" model="detractions.catalog.percent">
+			<field name="code">004</field>
+			<field name="name">Movimiento de carga</field>
+			<field name="percentage">0.10</field>
+		</record>
+
+		<record id="detraction_catalog_005" model="detractions.catalog.percent">
+			<field name="code">005</field>
+			<field name="name">Otros Servicios Empresariales</field>
+			<field name="percentage">0.12</field>
+		</record>
+
+		<record id="detraction_catalog_006" model="detractions.catalog.percent">
+			<field name="code">006</field>
+			<field name="name">Comisión mercantil</field>
+			<field name="percentage">0.10</field>
+		</record>
+
+		<record id="detraction_catalog_007" model="detractions.catalog.percent">
+			<field name="code">007</field>
+			<field name="name">Fabricación de bienes por encargo</field>
+			<field name="percentage">0.10</field>
+		</record>
+
+		<record id="detraction_catalog_008" model="detractions.catalog.percent">
+			<field name="code">008</field>
+			<field name="name">Servicio de transporte de personas</field>
+			<field name="percentage">0.10</field>
+		</record>
+
+		<record id="detraction_catalog_009" model="detractions.catalog.percent">
+			<field name="code">009</field>
+			<field name="name">Contratos de Construcción</field>
+			<field name="percentage">0.04</field>
+		</record>
+
+		<record id="detraction_catalog_010" model="detractions.catalog.percent">
+			<field name="code">010</field>
+			<field name="name">Demás servicios gravados con el IGV</field>
+			<field name="percentage">0.12</field>
+		</record>
+
+		<record id="detraction_catalog_027" model="detractions.catalog.percent">
+			<field name="code">027</field>
+			<field name="name">Transporte de bienes</field>
+			<field name="percentage">0.04</field>
+		</record>
+
+	</data>
+</odoo>

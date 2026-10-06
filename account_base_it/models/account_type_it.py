@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api
+
+class AccountTypeIt(models.Model):
+	_name = 'account.type.it'
+	_description = 'Account Type It'
+
+	code = fields.Char(string='Codigo')
+	name = fields.Char(string='Nombre')
+	group_balance = fields.Selection([
+									('B1','Activo Corriente.'),
+									('B2','Activo no Corriente.'),
+									('B3','Pasivo Corriente.'),
+									('B4','Pasivo no Corriente.'),
+									('B5','Patrimonio.')
+									],string='Grupo Balance')
+	group_nature = fields.Selection([
+									('N1','Grupo 1'),
+									('N2','Grupo 2'),
+									('N3','Grupo 3'),
+									('N4','Grupo 4'),
+									('N5','Grupo 5'),
+									('N6','Grupo 6'),
+									('N7','Grupo 7'),
+									('N8','Grupo 8')
+									],string='Grupo Naturaleza')
+	group_function = fields.Selection([
+									('F1','Grupo 1'),
+									('F2','Grupo 2'),
+									('F3','Grupo 3'),
+									('F4','Grupo 4'),
+									('F5','Grupo 5'),
+									('F6','Grupo 6')
+									],string=u'Grupo Función')
+	order_balance = fields.Integer(string='Orden de Balance')
+	order_nature = fields.Integer(string='Orden de Naturaleza')
+	order_function = fields.Integer(string=u'Orden de Función')
+
+	@api.depends('code')
+	def _compute_display_name(self):
+		for record in self:
+			record.display_name = f"{record.code} {record.name}"

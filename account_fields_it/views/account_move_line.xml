@@ -11,9 +11,9 @@
 			<field name="move_name" position="attributes">
                 <attribute name="column_invisible">1</attribute>
             </field>
-			<field name="move_name" position="after">
+			<!--field name="move_name" position="after">
 				<field name="vou_number" widget="open_move_widget"/>
-			</field>
+			</field-->
 			<field name="account_id" position="after">
 				<field name="type_document_id"/>
 				<field name="nro_comp"/>

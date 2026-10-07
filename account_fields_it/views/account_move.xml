@@ -105,9 +105,7 @@
 				<xpath expr="//group[@id='header_right_group']/div[2]" position="attributes">
 					<attribute name="invisible">journal_type_it not in ('purchase','sale') and move_type == 'entry'</attribute>
 				</xpath-->
-				<xpath expr="//field[@name='name']" position="replace">
-					<field name="vou_number" readonly="not es_editable or state != 'draft'" force_save="1"/>
-					<field name="es_editable" invisible="True"/>
+				<xpath expr="//field[@name='name']" position="after">
 					<field name="journal_type_it" invisible="True"/>
 				</xpath>
 				<xpath expr="//notebook/page[@id='other_tab_entry']/group/group" position="inside">
@@ -299,13 +297,13 @@
 			<xpath expr="/search/group/filter[@name='invoicedate']" position="after">
 				<filter name="date" string="Fecha Contable" context="{'group_by': 'date'}"/>
 			</xpath>
-			<xpath expr="/search/field[@name='ref']" position="before">
+			<!--xpath expr="/search/field[@name='ref']" position="before">
 				<filter name="vou_number" string="Voucher"/>
-			</xpath>
+			</xpath-->
 		</field>
 	</record>
 
-	<record id="view_account_move_filter_inherit" model="ir.ui.view">
+	<!--record id="view_account_move_filter_inherit" model="ir.ui.view">
 		<field name="name">account.move.select.inherit</field>
 		<field name="inherit_id" ref="account.view_account_move_filter"/>
 		<field name="model">account.move</field>
@@ -314,7 +312,7 @@
 				<field name="vou_number" string="Voucher"/>
 			</xpath>
 		</field>
-	</record>
+	</record-->
 
 	<!--VIEW list MOVES-->
 
@@ -326,9 +324,9 @@
 			<field name="journal_id" position="after">
 				<field name="glosa" optional="show"/>
 			</field>
-			<field name="name" position="replace">
+			<!--field name="name" position="replace">
 				<field name="vou_number" optional="show"/>
-			</field>
+			</field-->
 			<field name="amount_total_signed" position="after">
 				<field name="amount_total" string="Importe en Divisa" optional="show"/>
 			</field>

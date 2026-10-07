@@ -4,7 +4,6 @@ from . import account_account_tag
 from . import account_account
 from . import account_analytic_account
 from . import account_bank_statement
-from . import account_batch_payment
 from . import account_fiscal_year
 from . import account_group
 from . import account_journal

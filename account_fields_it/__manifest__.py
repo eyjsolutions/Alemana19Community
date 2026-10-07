@@ -3,7 +3,7 @@
 	'name': 'Account Fields IT',
 	'category': 'Accounting',
 	'author': 'ITGRUPO,Glenda Julia Merma Mayhua',
-	'depends': ['account_base_it','account_batch_payment','account_budget'],
+	'depends': ['account_base_it'],
 	'version': '1.0',
     'summary': """- Obligatorio""",
 	'description':"""
@@ -20,9 +20,6 @@
 	- Tipos de Documento
 	- Monedas
 	- Partners
-
-	MIGRACIONES:
-	    Responsable: Sebastian Moises Loraico Lopez
 		
 	""",
 	'auto_install': True,
@@ -31,7 +28,6 @@
         "views/account_account_tag.xml",
         "views/account_account.xml",
         "views/account_analytic_account.xml",
-        "views/account_batch_payment.xml",
         "views/account_fiscal_year.xml",
         "views/account_group.xml",
         "views/account_journal.xml",

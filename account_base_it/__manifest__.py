@@ -3,7 +3,7 @@
 	'name': 'Account Base IT',
 	'category': 'Accounting',
 	'author': 'ITGRUPO,Glenda Julia Merma Mayhua',
-	'depends': ['l10n_latam_base','popup_it','account_accountant','l10n_latam_invoice_document','l10n_pe_reports'],
+	'depends': ['l10n_latam_base','account_accountant','l10n_latam_invoice_document','l10n_pe_reports'],
 	'version': '1.0',
     'summary': """- Obligatorio""",
 	'description':"""
@@ -17,10 +17,6 @@
 		-Series de Comprobantes
 		-Porcentajes de Detraccion
 		-Tipos de GV
-
-
-	MIGRACIONES:
-	    Responsable: Sebastian Moises Loraico Lopez
 	""",
 	'auto_install': True,
 	'demo': [],

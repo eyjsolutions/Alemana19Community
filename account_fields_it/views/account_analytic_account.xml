@@ -3,18 +3,12 @@
 	<record id="view_account_analytic_account_form_inherit" model="ir.ui.view">
 		<field name="name">account.analytic.account.form.inherit</field>
 		<field name="model">account.analytic.account</field>
-		<field name="inherit_id" ref="account_budget.view_account_analytic_account_form_inherit_budget"/>
+		<field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
 		<field name="arch" type="xml">
 			<data>
-				<xpath expr="//notebook" position="inside">
-					<page string="ITGRUPO">
-						<group>
-							<group>
-								<field name="a_debit" />
-								<field name="a_credit" />
-							</group>
-						</group>
-					</page>
+				<xpath expr="//field[@name='code']" position="after">
+					<field name="a_debit" />
+					<field name="a_credit" />
 				</xpath>
 			</data>
 		</field>

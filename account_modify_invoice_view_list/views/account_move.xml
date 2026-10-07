@@ -11,8 +11,8 @@
 			<xpath expr="//list" position="attributes">
 				<attribute name="decoration-danger">state == 'cancel'</attribute>
 			</xpath>
-			<field name="name" position="replace">
-				<field name="vou_number" decoration-bf="1"/>
+			<field name="name" position="after">
+				<!--field name="vou_number" decoration-bf="1"/-->
 				<field name="partner_l10n_pe_vat_code" optional="show" string="TP"/>
 				<field name="partner_vat" optional="show" string="Doc Partner"/>
 			</field>

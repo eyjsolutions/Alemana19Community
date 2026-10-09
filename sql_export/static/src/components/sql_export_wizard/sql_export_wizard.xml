@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="sql_export.SqlExportWizard" owl="1">
+        <Dialog title="'SQL Export Wizard'" size="'lg'" close="props.close">
+            <div class="sql-export-wizard p-4">
+                <div t-if="!state.sqlExportId" class="alert alert-danger">
+                    Error: No se pudo cargar la exportación SQL
+                </div>
+
+                <div t-if="state.sqlExportId" class="mb-3">
+                    <small class="text-muted">Exportación ID: <span t-esc="state.sqlExportId"/>
+                    </small>
+                </div>
+
+                <div t-if="state.exporting" class="alert alert-info">
+                    <i class="fa fa-spinner fa-spin me-1"/>
+ Cargando...
+                </div>
+
+                <div t-if="state.hasDynamicFields and state.dynamicFields.length > 0" class="variables_group">
+                    <t t-foreach="state.dynamicFields" t-as="field" t-key="field_index">
+                        <div t-if="field" class="mb-3">
+                            <label class="form-label">
+                                <span t-esc="field.string ? field.string : field.name"/>
+                                <t t-if="field.required"> *</t>
+                            </label>
+
+
+                            <t t-if="field.ttype === 'char'">
+                                <input type="text" class="form-control" t-on-input="(ev) => onFieldChange(field.name, ev.target.value)" t-att-placeholder="field.string ? field.string : field.name" />
+                            </t>
+
+
+                            <t t-elif="field.ttype === 'text'">
+                                <textarea class="form-control" rows="3" t-on-input="(ev) => onFieldChange(field.name, ev.target.value)" t-att-placeholder="field.string ? field.string : field.name" />
+                            </t>
+
+
+                            <t t-elif="field.ttype === 'integer'">
+                                <input type="number" class="form-control" step="1" t-on-input="(ev) => onFieldChange(field.name, parseInt(ev.target.value) || 0)" />
+                            </t>
+
+
+                            <t t-elif="field.ttype === 'float'">
+                                <input type="number" class="form-control" step="0.01" t-on-input="(ev) => onFieldChange(field.name, parseFloat(ev.target.value) || 0.0)" />
+                            </t>
+
+
+                            <t t-elif="field.ttype === 'boolean'">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" t-on-change="(ev) => onFieldChange(field.name, ev.target.checked)" />
+                                    <label class="form-check-label">Sí</label>
+                                </div>
+                            </t>
+
+
+                            <t t-elif="field.ttype === 'date'">
+                                <input type="date" class="form-control" t-on-input="(ev) => onFieldChange(field.name, ev.target.value)" />
+                            </t>
+
+
+                            <t t-elif="field.ttype === 'datetime'">
+                                <input type="datetime-local" class="form-control" t-on-input="(ev) => onFieldChange(field.name, ev.target.value)" />
+                            </t>
+
+
+                            <t t-elif="field.ttype === 'selection' and field.selection">
+                                <select class="form-select" t-on-change="(ev) => onFieldChange(field.name, ev.target.value)">
+                                    <option value="">Seleccionar...</option>
+                                    <t t-foreach="field.selection" t-as="option" t-key="option_index">
+                                        <option t-if="option and option.length >= 2" t-att-value="option[0]" t-esc="option[1]"/>
+                                    </t>
+                                </select>
+                            </t>
+
+
+                            <t t-elif="field.ttype === 'many2one'">
+                                <select class="form-select" t-on-change="(ev) => onMany2OneChange(field.name, ev)">
+                                    <option value="">Seleccionar...</option>
+                                    <t t-foreach="state.fieldDomainData[field.name]" t-as="option" t-key="option_index">
+                                        <option t-if="option" t-att-value="option.id" t-esc="option.display_name"/>
+                                    </t>
+                                </select>
+                            </t>
+
+
+                            <t t-elif="field.ttype === 'many2many'">
+                                <select class="form-select" multiple="true" t-on-change="(ev) => onMany2ManyChange(field.name, ev)">
+                                    <t t-foreach="state.fieldDomainData[field.name]" t-as="option" t-key="option_index">
+                                        <option t-if="option" t-att-value="option.id" t-esc="option.display_name"/>
+                                    </t>
+                                </select>
+                                <small class="form-text text-muted">Mantén Ctrl para seleccionar múltiples opciones</small>
+                            </t>
+
+
+
+                            <t t-elif="field.ttype === 'html'">
+                                <textarea class="form-control" rows="5" t-on-input="(ev) => onFieldChange(field.name, ev.target.value)" t-att-placeholder="field.string ? field.string : field.name" />
+                            </t>
+
+
+                            <t t-else="">
+                                <input type="text" class="form-control" t-on-input="(ev) => onFieldChange(field.name, ev.target.value)" t-att-placeholder="field.string ? field.string : field.name" />
+                            </t>
+
+
+                            <t t-if="field.ttype">
+                                <small class="form-text text-muted">
+                                    Tipo: <span t-esc="field.ttype"/>
+                                <t t-if="field.relation"> | Modelo: <span t-esc="field.relation"/>
+                                </t>
+                            </small>
+                        </t>
+                    </div>
+                </t>
+            </div>
+
+
+            <div t-if="state.sqlExportId and !state.hasDynamicFields and !state.exporting" class="alert alert-info">
+                    No hay parámetros requeridos para esta exportación.
+                <div class="mt-2">
+                    <button class="btn btn-primary" t-on-click="exportSql">
+                        <i class="fa fa-file-export me-1"/>
+ Generar Exportación Directa
+                    </button>
+                </div>
+            </div>
+
+            <div t-if="state.fileReady" class="alert alert-success mt-3">
+                <p>Archivo generado: <strong t-esc="state.fileName"/>
+                </p>
+                <button class="btn btn-primary" t-on-click="downloadFile">
+                    <i class="fa fa-download me-1"/>
+ Descargar Archivo
+                </button>
+            </div>
+
+            <div class="d-flex gap-2 mt-4 justify-content-end">
+                <button class="btn btn-primary" t-on-click="exportSql" t-att-disabled="state.exporting">
+                    <t t-if="state.exporting">
+                        <i class="fa fa-spinner fa-spin me-1"/>
+ Generando...
+                    </t>
+                    <t t-else="">
+                        <i class="fa fa-file-export me-1"/>
+ Generar Exportación
+                    </t>
+                </button>
+
+                <button class="btn btn-secondary" t-on-click="previewSql" t-att-disabled="state.exporting or !state.hasDynamicFields">
+                    <i class="fa fa-eye me-1"/>
+ Previsualizar SQL
+                </button>
+
+                <button class="btn btn-default" t-on-click="props.close">
+                    <i class="fa fa-times me-1"/>
+ Cancelar
+                </button>
+            </div>
+        </div>
+    </Dialog>
+</t>
+</templates>

@@ -3,7 +3,7 @@
 	<data>
 		<record id="group_sql_query_admin_it" model="res.groups">
 			<field name="name">Query Admin</field>
-			<field name="category_id" ref="base.module_category_hidden"/>
+			<!--field name="category_id" ref="base.module_category_hidden"/-->
 		</record>
 	</data>
 </odoo>

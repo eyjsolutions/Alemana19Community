@@ -79,8 +79,8 @@ class AccountOutPaymentWizard(models.TransientModel):
 
 	def get_report(self):
 		workbook = self.get_excel_sql_export(self._get_sql(),self.get_header())
-		return self.env['popup.it'].get_file('Libro Diario.xlsx',workbook)
+		return self.env['popup.it'].get_file('Informe Cobros.xlsx',workbook)
 
 	def get_header(self):
-		HEADERS = ['FECHA PAGO','TD','NRO COMP','CLIENTE','METODO DE PAGO','CAJA(TIENDA)','MONTO']
+		HEADERS = ['FECHA PAGO','TD','NRO COMP','CLIENTE','METODO DE PAGO','CAJA(TIENDA)','MONTO','CUENTA']
 		return HEADERS

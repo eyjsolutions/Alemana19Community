@@ -72,8 +72,8 @@ class AccountOutPaymentWizard(models.TransientModel):
 			LEFT JOIN account_account aa on aa.id = ala.account_id
 			where am.state = 'posted' and am.move_type in ('out_invoice','out_refund')
 			and ((pos_p.payment_date::timestamp - interval '5' hour)::date between '%s' and '%s') and am.company_id = %d
-		""" % (self.company_id.id,self.date_from.strftime('%Y/%m/%d') if self.show_by == 'date' else self.period_from_id.date_start.strftime('%Y/%m/%d'),
-			self.date_to.strftime('%Y/%m/%d') if self.show_by == 'date' else self.period_to_id.date_end.strftime('%Y/%m/%d'),
+		""" % (self.company_id.id,self.date_start.strftime('%Y/%m/%d'),
+			self.date_end.strftime('%Y/%m/%d'),
 			self.company_id.id)
 		return sql
 

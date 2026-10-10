@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Template para Mensajes con Animación -->
+    <t t-name="popup_it.PopupMessageWidget">
+        <div class="popup_it_message_container" t-att-data-type="messageType">
+            <div class="popup_it_box">
+                <!-- Decorative dots -->
+                <div class="popup_it_dot"></div>
+                <div class="popup_it_dot popup_it_dot_two"></div>
+                
+                <!-- Animated Face -->
+                <div t-att-class="'popup_it_face ' + (messageType === 'error' ? 'popup_it_face_rolling' : '')">
+                    <div class="popup_it_eye"></div>
+                    <div class="popup_it_eye popup_it_eye_right"></div>
+                    <div t-att-class="'popup_it_mouth ' + (messageType === 'success' ? 'popup_it_mouth_happy' : messageType === 'error' ? 'popup_it_mouth_sad' : 'popup_it_mouth_neutral')"></div>
+                </div>
+                
+                <!-- Shadow -->
+                <div t-att-class="'popup_it_shadow ' + (messageType === 'error' ? 'popup_it_shadow_move' : 'popup_it_shadow_scale')"></div>
+                
+                <!-- Message Content -->
+                <div class="popup_it_message_content">
+                    <h1 class="popup_it_title" t-esc="title"/>
+                    <div class="popup_it_message_text" t-esc="message"/>
+                </div>
+            </div>
+        </div>
+    </t>
+    
+    <!-- Template para Archivos con Diseño Moderno -->
+    <t t-name="popup_it.PopupFileWidget">
+        <div class="popup_it_file_container">
+            <div class="popup_it_file_box">
+                <!-- File Icon -->
+                <div class="popup_it_file_icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                        <polyline points="13 2 13 9 20 9"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+                
+                <!-- File Info -->
+                <div class="popup_it_file_content">
+                    <h2 class="popup_it_file_title">¡Archivo Generado!</h2>
+                    <button class="popup_it_download_btn" t-on-click="downloadFile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                   <span t-esc="fileName"/>
+                </button>
+                    
+                </div>
+                
+                <!-- Download Button -->
+                
+            </div>
+        </div>
+    </t>
+</templates>

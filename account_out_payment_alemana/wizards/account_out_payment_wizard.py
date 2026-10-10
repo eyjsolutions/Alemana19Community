@@ -59,7 +59,8 @@ class AccountOutPaymentWizard(models.TransientModel):
 			rp.name as partner,
 			ppm.name->>'es_PE' as metodo_pago,
 			rcba.name as tienda,
-			pos_p.amount
+			pos_p.amount,
+			(aa.code_store->>(%d)::character varying)::varchar  as cuenta
 			from account_move am 
 			LEFT JOIN pos_order pos on am.id = pos.account_move
 			LEFT JOIN pos_payment pos_p on pos_p.pos_order_id = pos.id
@@ -67,9 +68,11 @@ class AccountOutPaymentWizard(models.TransientModel):
 			LEFT JOIN res_partner rp ON rp.id = am.partner_id
 			LEFT JOIN pos_payment_method ppm on ppm.id = pos_p.payment_method_id
 			LEFT JOIN res_company_branch_address rcba on rcba.id = am.company_branch_address_id
+			LEFT JOIN account_local_alemana ala on ala.company_branch_address_id = am.company_branch_address_id
+			LEFT JOIN account_account aa on aa.id = ala.account_id
 			where am.state = 'posted' and am.move_type in ('out_invoice','out_refund')
 			and ((pos_p.payment_date::timestamp - interval '5' hour)::date between '%s' and '%s') and am.company_id = %d
-		""" % (self.date_from.strftime('%Y/%m/%d') if self.show_by == 'date' else self.period_from_id.date_start.strftime('%Y/%m/%d'),
+		""" % (self.company_id.id,self.date_from.strftime('%Y/%m/%d') if self.show_by == 'date' else self.period_from_id.date_start.strftime('%Y/%m/%d'),
 			self.date_to.strftime('%Y/%m/%d') if self.show_by == 'date' else self.period_to_id.date_end.strftime('%Y/%m/%d'),
 			self.company_id.id)
 		return sql

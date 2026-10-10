@@ -35,4 +35,11 @@
 		  </p>
 		</field>
 	</record>
+
+	
+		<menuitem action="action_account_local_alemana_form" 
+				id="menu_action_account_local_alemana_form" 
+				parent="account.menu_finance_entries" 
+				sequence="101" 
+				groups="account_base_it.group_account_tables_user"/>
 </odoo>

@@ -29,15 +29,16 @@ class AccountOutPaymentWizard(models.TransientModel):
 	def _get_sql(self):
 
 		sql = """SELECT
-			pos_p.payment_date as date,
+			(pos_p.payment_date::timestamp - interval '5' hour)::date as date,
 			lldt.code as td_sunat,
 			am.nro_comp,
 			rp.name as partner,
-			ppm.name as metodo_pago,
+			ppm.name->>'es_PE' as metodo_pago,
 			rcba.name as tienda,
 			pos_p.amount
 			from account_move am 
-			left join pos_payment pos_p on am.id = pos_p.account_move_id
+			LEFT JOIN pos_order pos on am.id = pos.account_move
+			LEFT JOIN pos_payment pos_p on pos_p.pos_order_id = pos.id
 			LEFT JOIN l10n_latam_document_type lldt ON lldt.id = am.l10n_latam_document_type_id
 			LEFT JOIN res_partner rp ON rp.id = am.partner_id
 			LEFT JOIN pos_payment_method ppm on ppm.id = pos_p.payment_method_id

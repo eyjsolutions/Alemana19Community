@@ -10,7 +10,8 @@
 	""",
 	'auto_install': True,
 	'demo': [],
-	"data": [     
+	"data": [    
+		"security/ir.model.access.csv",        
         "views/account_local_alemana.xml"
         
     ],

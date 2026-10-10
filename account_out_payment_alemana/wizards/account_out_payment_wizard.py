@@ -25,6 +25,30 @@ class AccountOutPaymentWizard(models.TransientModel):
 	company_id = fields.Many2one('res.company',string=u'Compañia',required=True, default=lambda self: self.env.company,readonly=True)
 	date_start = fields.Date(string='Fecha de Inicio')
 	date_end = fields.Date(string='Fecha de Fin')
+
+	def get_excel_sql_export(self,sql,header=None):
+		self.env.cr.execute(sql)
+		res = self.env.cr.fetchall()
+		colnames = header
+		if not colnames:
+			colnames = [
+				desc[0] for desc in self.env.cr.description
+			]
+		res.insert(0, colnames)
+
+		wb = openpyxl.Workbook()
+		ws = wb.active
+		row_position = 1
+		col_position = 1
+		for index, row in enumerate(res, row_position):
+			for col, val in enumerate(row, col_position):
+				ws.cell(row=index, column=col).value = val
+		output = BytesIO()
+		wb.save(output)
+		output.getvalue()
+		output_datas = base64.b64encode(output.getvalue())
+		output.close()
+		return output_datas
 	
 	def _get_sql(self):
 
@@ -51,8 +75,7 @@ class AccountOutPaymentWizard(models.TransientModel):
 		return sql
 
 	def get_report(self):
-		ReportBase = self.env['report.base']
-		workbook = ReportBase.get_excel_sql_export(self._get_sql(),self.get_header())
+		workbook = self.get_excel_sql_export(self._get_sql(),self.get_header())
 		return self.env['popup.it'].get_file('Libro Diario.xlsx',workbook)
 
 	def get_header(self):

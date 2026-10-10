@@ -12,7 +12,7 @@
 	'demo': [],
 	'data':	[
 		'security/ir.model.access.csv',
-		'wizards/account_anexo_wizard.xml'],
+		'wizards/account_out_payment_wizard.xml'],
 	'installable': True,
 	'license': 'LGPL-3'
 }

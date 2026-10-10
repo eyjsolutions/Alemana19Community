@@ -1,1 +1,1 @@
-from . import account_anexo_wizard
+from . import account_out_payment_wizard

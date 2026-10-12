@@ -12,8 +12,8 @@
 	'demo': [],
 	"data": [    
 		"security/ir.model.access.csv",        
-        "views/account_local_alemana.xml"
-        
+        "views/account_local_alemana.xml",
+        "views/account_account_views.xml"
     ],
 	'installable': True,
 	'license': 'LGPL-3'

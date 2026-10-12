@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="account_tag_action" model="ir.actions.act_window">
+        <field name="name">Etiquetas de cuenta</field>
+        <field name="res_model">account.account.tag</field>
+        <field name="search_view_id" ref="account.account_tag_view_search"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Agregar nueva Etiqueta de Cuenta
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="account_tag_menu" 
+            parent="account.account_account_menu" 
+            action="account_base_alemana.account_tag_action" 
+            groups="base.group_no_one"/>
+
+</odoo>

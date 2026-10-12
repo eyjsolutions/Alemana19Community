@@ -13,7 +13,6 @@
 
     <menuitem id="account_tag_menu" 
             parent="account.account_account_menu" 
-            action="account_base_alemana.account_tag_action" 
-            groups="base.group_no_one"/>
+            action="account_base_alemana.account_tag_action"/>
 
 </odoo>
